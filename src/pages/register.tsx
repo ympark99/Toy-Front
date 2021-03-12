@@ -4,10 +4,12 @@ import styled from "@emotion/styled";
 
 function RegisterPage(){
 
-  const [typingName, setName] = useState("")
+  const [isChecked,setChecked] = useState(false);
+  const getImageName = isChecked? 'check' : 'uncheck';
+  const [typingName, setName] = useState(0);
   const [typingEmail, setEmail] = useState("");
   const [typingPassword, setPassword] = useState("");
-  const [typingConfirmPassword, setConfirmPassword] = useState("")    
+  const [typingConfirmPassword, setConfirmPassword] = useState("")
 
     // 키보드 입력시 입력내용 input tag에 써주기
     const onNameHandler = (event) => {
@@ -31,8 +33,6 @@ const onSubmitHandler = (event) => {
   }
 
 }
-
-
 
 
   return (
@@ -63,15 +63,15 @@ const onSubmitHandler = (event) => {
               <Agreement>
                 <ArgreementHeader>약관동의</ArgreementHeader>
                 <ArgreementCheckForm>
-                  <AgreementCheckAll>
-                      <CheckBox type="checkbox" />
+                  <AgreementCheckAll>            
+                      <CheckBox type="image" checked={isChecked} onClick = {() => setChecked(!isChecked)} src={CheckImg[getImageName]}/>
                       <AgreementCheckAllMsg>모두 동의합니다.</AgreementCheckAllMsg>
                   </AgreementCheckAll>
                   <AgreementCheckAllLine></AgreementCheckAllLine>
                   <AgreementCheckElseForm>
 
                     <AgreementCheckElse>
-                      <CheckBox type="checkbox" />
+                    <CheckBox type="image" checked={isChecked} onClick = {() => setChecked(!isChecked)} src={CheckImg[getImageName]}/>
                       <AgreementCheckMsgForm>
                         <AgreementCheckMsg>만 14세 이상입니다.</AgreementCheckMsg>
                         <Essential>(필수)</Essential>
@@ -79,7 +79,7 @@ const onSubmitHandler = (event) => {
                     </AgreementCheckElse>
 
                     <AgreementCheckElse>
-                      <CheckBox type="checkbox" />
+                    <CheckBox type="image" checked={isChecked} onClick = {() => setChecked(!isChecked)} src={CheckImg[getImageName]}/>
                       <AgreementCheckMsgForm>
                         <AgreementCheckMsg>서비스 이용약관에 동의합니다.</AgreementCheckMsg>
                         <Essential>(필수)</Essential>
@@ -499,12 +499,17 @@ const AgreementCheckAll = styled.div`
   margin : 20px 15px;
 `;
 
-const CheckBox = styled.input`
-  left: 0%;
-  right: 0%;
-  top: 0%;
-  bottom: 0%;
+const CheckImg = {
+  check : "https://kmong.com/img/checkBox/round_checked.png",
+  uncheck : "https://kmong.com/img/checkBox/round_unCheck.png"
+}
 
+const CheckBox = styled.input`
+  height: 18px;
+  width: 18px;
+  left: 0px;
+  top: 0px;
+  border-radius: 0px;
   background: url(image.png);
 `;
 
@@ -537,6 +542,9 @@ const AgreementCheckAllLine = styled.div`
   left: 16px;
   top: 56px;
 
+  margin-left : 16px;
+  margin-right : 16px;
+
   background: #CCCCCC;  
 `;
 
@@ -558,7 +566,7 @@ const AgreementCheckElse = styled.div`
   align-items: center;
   padding: 0px;
 
-  width: 146px;
+  width: 500px;
   height: 21px;
   left: 0px;
   top: 0px;
