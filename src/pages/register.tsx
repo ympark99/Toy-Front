@@ -1,12 +1,11 @@
 import React, {useState} from "react";
-
 import styled from "@emotion/styled";
+
+import { Agreement } from  "components/agreement";
 
 function RegisterPage(){
 
-  const [isChecked,setChecked] = useState(false);
-  const getImageName = isChecked? 'check' : 'uncheck';
-  const [typingName, setName] = useState(0);
+  const [typingName, setName] = useState("");
   const [typingEmail, setEmail] = useState("");
   const [typingPassword, setPassword] = useState("");
   const [typingConfirmPassword, setConfirmPassword] = useState("")
@@ -42,7 +41,6 @@ const onSubmitHandler = (event) => {
         <Frame>
           <Header>딱 이것만 체크하면 가입 완료!!</Header>
           <Content>
-              <TypingForm>
                 <Name>
                   <NameHeader>이름</NameHeader>
                   <NameInput type = "text" value={typingName} placeholder ="이름을 입력하세요" onChange = {onNameHandler} />
@@ -59,36 +57,9 @@ const onSubmitHandler = (event) => {
                   <PasswordInput type = "password" value={typingPassword} placeholder ="비밀번호를 입력해주세요 (6자 이상)"  onChange = {onPasswordHandler} />
                   <PasswordConfirmInput type = "password" value={typingConfirmPassword} placeholder ="비밀번호를 한 번 더 입력해주세요."  onChange = {onConfirmPasswordHandler} />
                 </Password>
-              </TypingForm>
-              <Agreement>
-                <ArgreementHeader>약관동의</ArgreementHeader>
-                <ArgreementCheckForm>
-                  <AgreementCheckAll>            
-                      <CheckBox type="image" checked={isChecked} onClick = {() => setChecked(!isChecked)} src={CheckImg[getImageName]}/>
-                      <AgreementCheckAllMsg>모두 동의합니다.</AgreementCheckAllMsg>
-                  </AgreementCheckAll>
-                  <AgreementCheckAllLine></AgreementCheckAllLine>
-                  <AgreementCheckElseForm>
 
-                    <AgreementCheckElse>
-                    <CheckBox type="image" checked={isChecked} onClick = {() => setChecked(!isChecked)} src={CheckImg[getImageName]}/>
-                      <AgreementCheckMsgForm>
-                        <AgreementCheckMsg>만 14세 이상입니다.</AgreementCheckMsg>
-                        <Essential>(필수)</Essential>
-                      </AgreementCheckMsgForm>                       
-                    </AgreementCheckElse>
-
-                    <AgreementCheckElse>
-                    <CheckBox type="image" checked={isChecked} onClick = {() => setChecked(!isChecked)} src={CheckImg[getImageName]}/>
-                      <AgreementCheckMsgForm>
-                        <AgreementCheckMsg>서비스 이용약관에 동의합니다.</AgreementCheckMsg>
-                        <Essential>(필수)</Essential>
-                      </AgreementCheckMsgForm>                       
-                    </AgreementCheckElse>               
-
-                  </AgreementCheckElseForm>       
-                </ArgreementCheckForm>    
-              </Agreement>
+               {/* 약관동의 & 제출버튼 */}
+                <Agreement/>
           </Content>
         </Frame>
       </Container>
@@ -116,7 +87,7 @@ const Frame = styled.div`
   flex-direction: column;
 
   width: 600px;
-  height: 835px;
+  height: 975px;
   left: 340px;
   top: 130px;
 
@@ -162,7 +133,7 @@ const Image = styled.img`
   border-radius: 0px;
 `;
 
-const Content = styled.div`
+const Content = styled.form`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -174,25 +145,6 @@ const Content = styled.div`
   height: 697px;
   left: 441px;
   top: 285px;
-`;
-
-const TypingForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-
-  width: 398px;
-  height: 345px;
-  left: 0px;
-  top: 0px;
-
-
-  /* Inside Auto Layout */
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
 `;
 
 const Name = styled.div`
@@ -304,10 +256,7 @@ const EmailSummit = styled.div`
 `;
 
 const EmailInput = styled.input`
-
-  padding : 0px 120px 0px 0px;
-  order : 1;
-
+  width: 276px;
   background: #FFFFFF;
   border: 0px;
   box-sizing: border-box;
@@ -328,7 +277,7 @@ const EmailConfirm = styled.button`
   order : 2;
 
   width: 110px;
-  height: 40px;
+  height: 38px;
   left: 283px;
   top: 5px;  
 
@@ -420,202 +369,6 @@ const PasswordConfirmInput = styled.input`
   flex: none;
   order: 2;
   flex-grow: 0;
-  margin: 10px 0px;
-`;
-
-const Agreement = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-
-  width: 398px;
-  height: 322px;
-  left: 0px;
-  top: 375px;
-
-
-  /* Inside Auto Layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-  margin: 15px 0px;
-`;
-
-const ArgreementHeader = styled.div`
-  width: 67px;
-  height: 25px;
-  left: 0px;
-  top: 0px;
-
-  font-style: normal;
-  font-weight: normal;
-  font-size: 15px;
-  line-height: 25px;
-  /* identical to box height, or 165% */
-
-  letter-spacing: 0.16px;
-
-  color: #303441;
-
-
-  /* Inside Auto Layout */
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-`;
-
-const ArgreementCheckForm = styled.div`
-  width: 398px;
-  height: 227px;
-  left: 0px;
-  top: 35px;
-
-  border: 1px solid #E4E5ED;
-  box-sizing: border-box;
-  border-radius: 4px;
-
-  /* Inside Auto Layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-  margin: 10px 0px;
-`;
-
-const AgreementCheckAll = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px;
-
-  width: 121px;
-  height: 21px;
-  left: 16px;
-  top: 20px;
-
-  margin : 20px 15px;
-`;
-
-const CheckImg = {
-  check : "https://kmong.com/img/checkBox/round_checked.png",
-  uncheck : "https://kmong.com/img/checkBox/round_unCheck.png"
-}
-
-const CheckBox = styled.input`
-  height: 18px;
-  width: 18px;
-  left: 0px;
-  top: 0px;
-  border-radius: 0px;
-  background: url(image.png);
-`;
-
-const AgreementCheckAllMsg = styled.div`
-  width: 250px;
-  height: 21px;
-  left: 23px;
-  top: 0px;
-
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 20px;
-  /* or 143% */
-
-  color: #555969;
-
-
-  /* Inside Auto Layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-  margin: 0px 5px;
-`;
-
-const AgreementCheckAllLine = styled.div`
-  width: 366px;
-  height: 1px;
-  left: 16px;
-  top: 56px;
-
-  margin-left : 16px;
-  margin-right : 16px;
-
-  background: #CCCCCC;  
-`;
-
-const AgreementCheckElseForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-
-  width: 245px;
-  height: 141px;
-  left: 16px;
-  top: 70px;
-`;
-
-const AgreementCheckElse = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px;
-
-  width: 500px;
-  height: 21px;
-  left: 0px;
-  top: 0px;
-
-
-  /* Inside Auto Layout */
-  flex-grow: 0;
-  margin : 10px 15px;
-`;
-
-const AgreementCheckMsgForm = styled.div`
-  width: 250px;
-  height: 21px;
-  left: 23px;
-  top: 0px;
-
-  font-style: normal;
-  font-weight: normal;
-  font-size: 11px;
-  line-height: 20px;
-  /* or 182% */
-
-
-  color: #555969;
-
-  display : flex;
-  flex-direction: row;
-
-  /* Inside Auto Layout */
-
-  margin: 0px 5px;
-`;
-
-const AgreementCheckMsg = styled.div`
-  width: 200px;
-  height: 21px;
-
-`;
-
-const Essential = styled.button`
-  width: 50px;
-  height: 21px;
-
-  color: #ff402b;
-  cursor: pointer;
-  background: white !important;
-  border : 0px;
-  margin : 0;
-  padding : 0;
 `;
 
 
